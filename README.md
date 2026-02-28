@@ -1,5 +1,63 @@
-# Vue 3 + TypeScript + Vite
+# nodelocked.github.io
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+A Vue 3 + Vite personal site with blog, bilingual UI, and a photo wall.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Photo pipeline
+
+1. Put original images into `./photos` (project root).
+2. Run:
+
+```bash
+pnpm photos
+```
+
+What `pnpm photos` does:
+
+- normalizes file names to `p-<timestamp>-<index>.<ext>`
+- compresses and rotates images based on EXIF
+- writes/updates sidecar JSON metadata (`text`, `date`, `width`, `height`, `blurhash`)
+- cleans orphan JSON files
+
+Pre-commit hook is configured to run `pnpm photos` automatically before each commit.
+
+## Reuse photos across the site
+
+### In Markdown posts
+
+Use the `photo:` source protocol:
+
+```md
+![A sunset](photo:p-2026-02-28-11-23-30-120-1.jpg)
+```
+
+The post renderer resolves this to the optimized photo asset URL automatically.
+
+### In Vue components
+
+Use `PhotoImage`:
+
+```vue
+<script setup lang="ts">
+import PhotoImage from '../components/photo/PhotoImage.vue'
+</script>
+
+<template>
+  <PhotoImage name="p-2026-02-28-11-23-30-120-1.jpg" alt="A sunset" />
+</template>
+```
+
+Or use `usePhotos`/`resolvePhoto` from `src/lib/photos.ts` for custom logic.
+
+## Build
+
+```bash
+pnpm build
+pnpm preview
+```

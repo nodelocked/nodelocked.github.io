@@ -4,6 +4,7 @@ export const messages = {
   en: {
     navHome: 'Home',
     navPosts: 'Posts',
+    navPhotos: 'Photos',
     navAbout: 'About',
     navPrimaryLabel: 'Primary navigation',
     languageLabel: 'Language',
@@ -23,6 +24,10 @@ export const messages = {
     postsDescription: 'Writing on web design, development workflow, and product thinking.',
     postsFilterLabel: 'Filter posts by tag',
     postsAll: 'All',
+
+    photosTitle: 'Photo Wall',
+    photosDescription: 'A calm visual timeline, optimized for fast loading and reuse.',
+    photosEmpty: 'No photos yet. Put images into the /photos folder and run pnpm photos.',
 
     postBackToPosts: 'Back to posts',
     postNotFoundTitle: 'Post not found',
@@ -48,6 +53,7 @@ export const messages = {
   zh: {
     navHome: '首页',
     navPosts: '文章',
+    navPhotos: '照片墙',
     navAbout: '关于',
     navPrimaryLabel: '主导航',
     languageLabel: '语言',
@@ -66,6 +72,10 @@ export const messages = {
     postsDescription: '记录 Web 设计、开发工作流与产品思考。',
     postsFilterLabel: '按标签筛选文章',
     postsAll: '全部',
+
+    photosTitle: '照片墙',
+    photosDescription: '一组克制简洁、加载优化的视觉记录。',
+    photosEmpty: '暂无照片。请把图片放到 /photos 目录后执行 pnpm photos。',
 
     postBackToPosts: '返回文章列表',
     postNotFoundTitle: '未找到文章',

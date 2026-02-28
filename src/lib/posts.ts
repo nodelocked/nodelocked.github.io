@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import { computed } from 'vue'
+import { resolvePhoto } from './photos'
 import type { Post } from '../types/post'
 
 const markdown = new MarkdownIt({
@@ -7,6 +8,40 @@ const markdown = new MarkdownIt({
   linkify: true,
   typographer: true,
 })
+
+const defaultImageRenderer = markdown.renderer.rules.image
+markdown.renderer.rules.image = (tokens, idx, options, env, self) => {
+  const token = tokens[idx]
+  if (!token) {
+    return ''
+  }
+
+  const source = token.attrGet('src')
+  if (source && source.startsWith('photo:')) {
+    const photo = resolvePhoto(source)
+    if (photo) {
+      token.attrSet('src', photo.src)
+
+      if (photo.width) {
+        token.attrSet('width', String(photo.width))
+      }
+
+      if (photo.height) {
+        token.attrSet('height', String(photo.height))
+      }
+    }
+  }
+
+  token.attrSet('loading', 'lazy')
+  token.attrSet('decoding', 'async')
+  token.attrJoin('class', 'post-photo')
+
+  if (defaultImageRenderer) {
+    return defaultImageRenderer(tokens, idx, options, env, self)
+  }
+
+  return self.renderToken(tokens, idx, options)
+}
 
 const rawModules = import.meta.glob('../content/posts/*.md', {
   eager: true,

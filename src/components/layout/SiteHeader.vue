@@ -31,6 +31,7 @@ function getThemeLabel(themeMode: ThemeMode): string {
       <nav class="nav-links" :aria-label="t('navPrimaryLabel')">
         <RouterLink to="/">{{ t('navHome') }}</RouterLink>
         <RouterLink to="/posts">{{ t('navPosts') }}</RouterLink>
+        <RouterLink to="/photos">{{ t('navPhotos') }}</RouterLink>
         <RouterLink to="/about">{{ t('navAbout') }}</RouterLink>
       </nav>
 
