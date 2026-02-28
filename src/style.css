@@ -431,6 +431,18 @@ p {
   width: 100%;
   background: var(--bg-soft);
   overflow: hidden;
+  border: 0;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.photo-frame.expanded {
+  outline: 2px solid var(--accent);
+}
+
+.photo-frame:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .photo-frame img {
@@ -474,6 +486,26 @@ p {
 
 .photos-empty {
   color: var(--text-muted);
+}
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: color-mix(in srgb, var(--bg) 24%, black 76%);
+  cursor: zoom-out;
+}
+
+.photo-lightbox img {
+  width: auto;
+  height: auto;
+  max-width: min(96vw, 1400px);
+  max-height: 92vh;
+  border-radius: 12px;
+  box-shadow: 0 20px 70px rgb(0 0 0 / 35%);
 }
 
 .empty-state {

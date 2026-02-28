@@ -6,9 +6,15 @@ import type { PhotoAsset } from '../../types/photo'
 interface Props {
   photo: PhotoAsset
   dateLocale: string
+  isExpanded?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isExpanded: false,
+})
+const emit = defineEmits<{
+  toggle: []
+}>()
 
 const loaded = ref(false)
 
@@ -51,7 +57,14 @@ function onLoad() {
 
 <template>
   <figure class="photo-tile">
-    <a class="photo-frame" :href="props.photo.src" target="_blank" rel="noreferrer" :style="frameStyle">
+    <button
+      class="photo-frame"
+      :class="{ expanded: props.isExpanded }"
+      type="button"
+      :aria-pressed="props.isExpanded"
+      :style="frameStyle"
+      @click="emit('toggle')"
+    >
       <div
         v-if="previewDataUrl"
         class="photo-placeholder"
@@ -67,7 +80,7 @@ function onLoad() {
         :class="{ loaded }"
         @load="onLoad"
       />
-    </a>
+    </button>
 
     <figcaption>
       <span class="photo-title">{{ title }}</span>
